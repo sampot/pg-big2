@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="大老二：四人桌遊、人機對戰、自製音效。純前端 Playgrounds SAM，適配手機與桌面。"
+    />
+    <title>大老二</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <h1>大老二</h1>
+        <p class="tagline">四人出牌 · 人機對戰 · 純娛樂</p>
+      </header>
+
+      <section class="meter" aria-label="對局狀態">
+        <div class="meter-item">
+          <span class="label">回合</span>
+          <strong id="turn-label">—</strong>
+        </div>
+        <div class="meter-item">
+          <span class="label">桌上</span>
+          <strong id="trick-label">自由出牌</strong>
+        </div>
+        <div class="meter-actions">
+          <button type="button" id="btn-mute" class="secondary" aria-pressed="true">
+            音效開
+          </button>
+        </div>
+      </section>
+
+      <div class="controls">
+        <button type="button" id="btn-deal">開局</button>
+        <button type="button" id="btn-reset" class="secondary">重來</button>
+      </div>
+
+      <p id="status" class="status" role="status">點「開局」發牌。方塊 3 先出。</p>
+
+      <section class="table" aria-label="牌桌">
+        <div class="seat seat-top" data-seat="2">
+          <div class="seat-meta">
+            <span class="seat-name" id="name-2">阿心</span>
+            <span class="seat-count" id="count-2">13</span>
+          </div>
+          <div class="seat-cards" id="op-2" aria-hidden="true"></div>
+          <p class="seat-play" id="play-2"></p>
+        </div>
+
+        <div class="seat-mid">
+          <div class="seat seat-left" data-seat="1">
+            <div class="seat-meta">
+              <span class="seat-name" id="name-1">小梅</span>
+              <span class="seat-count" id="count-1">13</span>
+            </div>
+            <div class="seat-cards" id="op-1" aria-hidden="true"></div>
+            <p class="seat-play" id="play-1"></p>
+          </div>
+
+          <div class="trick-area" aria-live="polite">
+            <div id="trick-cards" class="trick-cards"></div>
+            <p id="trick-hint" class="trick-hint">尚未出牌</p>
+          </div>
+
+          <div class="seat seat-right" data-seat="3">
+            <div class="seat-meta">
+              <span class="seat-name" id="name-3">黑哥</span>
+              <span class="seat-count" id="count-3">13</span>
+            </div>
+            <div class="seat-cards" id="op-3" aria-hidden="true"></div>
+            <p class="seat-play" id="play-3"></p>
+          </div>
+        </div>
+
+        <div class="seat seat-you" data-seat="0">
+          <div class="seat-meta">
+            <span class="seat-name">你</span>
+            <span class="seat-count" id="count-0">13</span>
+          </div>
+          <div
+            id="hand"
+            class="hand"
+            role="listbox"
+            aria-label="你的手牌"
+            aria-multiselectable="true"
+          ></div>
+        </div>
+      </section>
+
+      <div class="action-bar">
+        <button type="button" id="btn-play" class="primary" disabled>出牌</button>
+        <button type="button" id="btn-pass" class="secondary" disabled>Pass</button>
+        <button type="button" id="btn-clear" class="secondary" disabled>取消選取</button>
+      </div>
+
+      <details class="rules">
+        <summary>規則摘要</summary>
+        <ul>
+          <li>牌力：3 最小，2 最大；花色 ♦ &lt; ♣ &lt; ♥ &lt; ♠。</li>
+          <li>牌型：單張、對子、三條；五張為順／同花／葫蘆／鐵支／同花順。</li>
+          <li>順子不含 2；同花順最大。跟牌須同張數且壓過上家（五張可比牌型大小）。</li>
+          <li>有方塊 3 者先出，且首輪須含方塊 3。其餘人 Pass 後，最後出牌者自由出。</li>
+          <li>先出完手牌者勝。三名對手為簡易 AI。</li>
+        </ul>
+      </details>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
